@@ -1,1 +1,8 @@
 djvenv
+.vscode
+.idea
+webstoretempates
+media/
+__pycache__/
+
+db.sqlite3
