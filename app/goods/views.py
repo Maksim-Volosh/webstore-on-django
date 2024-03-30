@@ -1,9 +1,10 @@
+from django.core.paginator import Paginator
 from django.shortcuts import get_list_or_404, render
 
 from goods.models import Products
 
 
-def catalog(request, cat_slug):
+def catalog(request, cat_slug, page=1):
     
     if cat_slug == 'all':
         goods = Products.objects.all()
@@ -11,10 +12,13 @@ def catalog(request, cat_slug):
     else:
         goods = get_list_or_404(Products.objects.filter(category__slug=cat_slug))
 
+    paginator = Paginator(goods, 3)
+    current_page = paginator.page(page)
     
     context = {
         "title": "Home - Каталог",
-        "goods": goods
+        "goods": current_page,
+        "slug_url": cat_slug,
     }
     return render(request, "goods/catalog.html", context)
 
