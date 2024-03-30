@@ -43,7 +43,7 @@ class Products(models.Model):
         if self.discount != 0:
             return round(self.price - self.price*self.discount/100, 2)
         else:
-            return False
+            return self.price
     
 
         
